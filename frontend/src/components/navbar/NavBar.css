@@ -1,0 +1,39 @@
+.main-nav {
+  min-height: 70px;
+}
+
+.navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.navbar-logo{
+    padding: 0;
+}
+
+.navbar-container a {
+  text-decoration: none;
+}
+
+.navbar-container h4 {
+  font-weight: bold;
+  font-size: 24px;
+  letter-spacing: -0.015em;
+  color: #000000;
+  margin-left: 20px;
+  margin-bottom: 0px;
+}
+
+.navbar-btn {
+  border: 1px solid #000000;
+  box-sizing: border-box;
+  border-radius: 10px;
+  width: 100px;
+  margin-right: 10px;  
+}
+
+.navbar-btn span {
+  font-weight: bold;  
+}
