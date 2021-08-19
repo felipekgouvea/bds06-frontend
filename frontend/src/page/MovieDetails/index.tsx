@@ -1,13 +1,14 @@
 import './styles.css';
 import ButtonIcon from '../../components/ButtonIcon';
-import { ReactComponent as StarIcon } from '../../assets/images/star.svg';
 import { useState, useEffect } from 'react';
 import { Reviews } from '../../types/reviews';
 import { AxiosRequestConfig } from 'axios';
 import { requestBackend } from '../../util/requests';
-import { useHistory, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { hasAnyRoles } from '../../util/auth';
 import { useForm } from 'react-hook-form';
+import { Movies } from '../../types/movies';
+import { ReactComponent as StarIcon } from '../../assets/images/star.svg';
 
 type UrlParams = {
   movieId: string;
@@ -17,11 +18,12 @@ const MovieDetails = () => {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<Reviews>();
+  const { movieId } = useParams<UrlParams>();
+  const [movie, setMovie] = useState<Movies>();
   const [reviews, setReviews] = useState<Reviews[]>();
-  const { movieId } = useParams<UrlParams>();  
-  const history = useHistory();
 
   useEffect(() => {
     getReviews(movieId);
@@ -39,6 +41,22 @@ const MovieDetails = () => {
     });
   };
 
+  useEffect(() => {
+    getMovies(movieId);
+  }, [movieId]);
+
+  const getMovies = (movieId: string) => {
+    const params: AxiosRequestConfig = {
+      method: 'GET',
+      url: `/movies/${movieId}`,
+      withCredentials: true,
+    };
+
+    requestBackend(params).then((response) => {
+      setMovie(response.data);
+    });
+  };
+
   const onSubmit = (formData: Reviews) => {
     const data = { ...formData, movieId };
 
@@ -51,14 +69,26 @@ const MovieDetails = () => {
 
     requestBackend(config).then((response) => {
       getReviews(movieId);
-      history.replace(`/movies`);      
-      history.replace(`/movies/${movieId}`);      
+      setValue('text', '');
     });
   };
 
   return (
     <div className="movie-details-container">
-      <h1>Tela detalhes do filme id: {movieId}</h1>
+      <div className="base-card movie-details-content">
+        <div className="movie-details-img-container">
+          <img src={movie?.imgUrl} alt={movie?.title} />
+        </div>
+        <div className="movie-details-title-container">
+          <div className="movie-details-title">
+            <h1>{movie?.title}</h1>
+            <h2>{movie?.year}</h2>
+            <h3>{movie?.subTitle}</h3>
+          </div>
+          <div className="movie-details-title-comments">{movie?.synopsis}</div>
+        </div>
+      </div>
+
       {hasAnyRoles(['ROLE_MEMBER']) && (
         <div className="base-card movie-details-card">
           <form
@@ -90,12 +120,12 @@ const MovieDetails = () => {
       <div className="base-card movie-details-card">
         {reviews?.map((item) => (
           <>
-            <div className="movie-details-card-comments">
+            <div className="movie-details-card-comments" key={item.id}>
               <StarIcon className="movie-details-card-comments-icon" />
-              <h2>ANA</h2>
+              <h2>{item.user.name}</h2>
             </div>
             <div className="movie-details-comments">
-              <p key={item.id}>{item?.text}</p>
+              <p>{item?.text}</p>
             </div>
           </>
         ))}

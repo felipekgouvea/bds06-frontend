@@ -1,36 +1,69 @@
+/* Detalhes do Filme */
+
 .movie-details-container {
-  padding: 20px 10px;  
+  padding: 20px 10px;
 }
 
-.movie-details-container h1 {
-  width: 290px;
-  margin-bottom: 20px;
+.movie-details-content {
+  padding: 20px;
+  margin-bottom: 25px;
+  display: flex;
+  flex-direction: column;
+}
+
+.movie-details-img-container {
+  height: auto;
+}
+
+.movie-details-img-container img {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.movie-details-title {
+  margin-bottom: 15px;
+}
+
+.movie-details-title h1 {
   font-weight: bold;
-  font-size: 24px;
+  font-size: 20px;
+  letter-spacing: -0.015em;
+  color: #ffffff;
+  margin-top: 10px;
+}
+
+.movie-details-title h2 {
+  font-weight: bold;
+  font-size: 16px;
+  letter-spacing: -0.015em;
+  color: #ffc700;
+}
+
+.movie-details-title h3 {
+  font-weight: normal;
+  font-size: 14px;
   letter-spacing: -0.015em;
   color: #ffffff;
 }
 
-.movie-details-form-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.movie-details-title-comments {
+  border: 1px solid #e1e1e1;
+  box-sizing: border-box;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: justify;
+  margin-top: 15px;
 }
 
-.movie-details-input {
-  width: 260px;
-}
-
+/* Formulário do Comentário sobre o filme */
 .movie-details-card {
   padding: 20px 10px;
   border-radius: 5px;
   margin-bottom: 20px;
 }
 
-.movie-details-submit button {
-  height: 50px;  
-}
-
+/* Comentários do Filme */
 .movie-details-card-comments {
   display: flex;
   align-items: baseline;
@@ -38,9 +71,9 @@
 
 .movie-details-card-comments h2 {
   font-weight: bold;
-  font-size: 20px;
+  font-size: 16px;
   letter-spacing: -0.015em;
-  margin: 20px 0px 20px 20px;
+  margin: 15px;
   color: #ffffff;
 }
 
@@ -48,7 +81,7 @@
   margin-left: 15px;
 }
 
-.movie-details-card-comments-icon svg {
+.movie-details-card-comments-icon img {
   width: 100%;
 }
 
@@ -60,7 +93,6 @@
 }
 
 .movie-details-comments {
-  width: 100%;
   border: 1px solid #e1e1e1;
   box-sizing: border-box;
   border-radius: 4px;
@@ -69,47 +101,101 @@
 
 @media (min-width: 576px) {
   .movie-details-container {
-    width: 100%;
     padding: 25px 15px;
+  }
+
+  .movie-details-content img {
+    height: 300px;
   }
 
   .movie-details-container h1 {
     font-size: 28px;
-    width: 520px;
   }
-
-  .movie-details-input {
-    width: 510px;
+  .movie-details-form-container {
+    padding: 10px;
   }
 }
 
 @media (min-width: 768px) {
   .movie-details-container {
-    width: 100%;
-    padding: 30px 20px;
+    padding: 40px;
   }
 
-  .movie-details-container h1 {
-    font-size: 32px;
+  .movie-details-img-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  .movie-details-input {
-    width: 690px;
+  .movie-details-content {
+    padding: 40px;
+  }
+
+  .movie-details-content img {
+    height: auto;
+    width: 580px;
+  }
+
+  .movie-details-title {
+    margin-top: 20px;
+    margin-bottom: 40px;
+  }
+
+  .movie-details-title h1 {
+    font-size: 36px;
+  }
+
+  .movie-details-title h2 {
+    font-size: 24px;
+  }
+
+  .movie-details-title h3 {
+    font-size: 24px;
+  }
+
+  .movie-details-card {
+    padding: 40px;
+  }
+}
+
+@media (min-width: 992px) {
+  .movie-details-submit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 
 @media (min-width: 1200px) {
-  .movie-details-container {
-    width: 100%;
-    padding: 40px 25px;
+  .movie-details-content {
+    flex-direction: row;
   }
 
-  .movie-details-container h1 {
-    font-size: 48px;
-    width: 100%;
+  .movie-details-img-container {
+    display: flex;
+    align-items: baseline;
   }
-  
-  .movie-details-input {
-    width: 1110px;
+
+  .movie-details-content img {
+    height: 300px;
+    width: 500px;
+  }
+
+  .movie-details-title-container {
+    margin-left: 40px;
+  }
+
+  .movie-details-title {
+    margin-bottom: 15px;
+  }
+
+  .movie-details-title-comments {
+    font-size: 18px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .movie-details-container {
+    padding: 40px 140px;
   }
 }

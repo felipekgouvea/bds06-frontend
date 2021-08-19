@@ -1,0 +1,152 @@
+.movie-list-content {
+  padding-bottom: 50px;
+  padding-top: 25px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  min-height: 310px;
+}
+
+.movie-list-content img {
+  width: 100%;
+}
+
+.movie-list-text {
+  margin-left: 15px;
+}
+
+.movie-list-text h1 {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  letter-spacing: -0.015em;
+  color: #ffffff;
+  margin-top: 10px;
+}
+
+.movie-list-text h2 {
+  font-weight: bold;
+  font-size: 16px;
+  letter-spacing: -0.015em;
+  color: #ffc700;
+}
+
+.movie-list-text h3 {
+  font-weight: normal;
+  font-size: 14px;
+  letter-spacing: -0.015em;
+  color: #ffffff;
+}
+
+@media (min-width: 576px) {
+  .movie-list-content {
+    padding-bottom: 35px;
+    min-height: 360px;
+  }
+
+  .movie-list-text {
+    margin-left: 13px;
+    padding-top: 10px;
+  }
+
+  .movie-list-text h1 {
+    font-size: 22px;
+  }
+
+  .movie-list-text h2 {
+    font-size: 18px;
+  }
+
+  .movie-list-text h3 {
+    font-size: 16px;
+  }
+}
+
+@media (min-width: 768px) {
+  .movie-list-content {
+    padding-bottom: 60px;
+    margin-bottom: 40px;
+    min-height: 460px;
+  }
+
+  .movie-list-text {
+    margin-left: 20px;
+    padding-top: 20px;    
+  }
+
+  .movie-list-text h1 {
+    font-size: 24px;
+  }
+
+  .movie-list-text h2 {
+    font-size: 20px;
+  }
+
+  .movie-list-text h3 {
+    font-size: 18px;
+  }
+}
+
+@media (min-width: 992px) {
+  .movie-list-content {
+    padding-bottom: 70px;
+    padding-top: 0;
+    margin-top: 0;
+    margin-bottom: 40px;
+  }
+
+  .movie-list-content img {
+    height: 275px;
+    padding-top: 20px;          
+  }
+
+  .movie-list-text h1 {
+    font-size: 22px;
+  }
+
+  .movie-list-text h2 {
+    font-size: 18px;
+  }
+
+  .movie-list-text h3 {
+    font-size: 16px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .movie-list-content {
+    margin-top: 40px;
+    padding: 0;
+    padding-top: 30px;
+    padding-bottom: 35px;
+    margin-bottom: 40px;
+    min-height: 360px;
+  }
+
+  .movie-list-content img {
+    width: 100%;
+    height: auto;
+  }
+
+  .movie-list-text {
+    padding: 0;
+  }
+
+  .movie-list-text h1 {
+    font-size: 20px;
+  }
+
+  .movie-list-text h2 {
+    font-size: 16px;
+  }
+
+  .movie-list-text h3 {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .movie-list-content {  
+    min-height: 420px;
+  }
+}
+
