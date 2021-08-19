@@ -1,5 +1,7 @@
 import React from 'react';
 import './App.css';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 import '../src/assets/styles/custom.scss';
 import Routes from './Routes';
 import { useState } from 'react';
@@ -14,6 +16,7 @@ function App() {
     <div className="App">
       <AuthContext.Provider value={{ authContextData, setAuthContextData }}>
         <Routes />
+        <ToastContainer/>
       </AuthContext.Provider>
     </div>
   );

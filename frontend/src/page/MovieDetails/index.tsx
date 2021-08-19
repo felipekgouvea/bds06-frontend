@@ -9,6 +9,8 @@ import { hasAnyRoles } from '../../util/auth';
 import { useForm } from 'react-hook-form';
 import { Movies } from '../../types/movies';
 import { ReactComponent as StarIcon } from '../../assets/images/star.svg';
+import { toast } from 'react-toastify';
+import CardLoader from '../../components/CardLoader';
 
 type UrlParams = {
   movieId: string;
@@ -24,6 +26,7 @@ const MovieDetails = () => {
   const { movieId } = useParams<UrlParams>();
   const [movie, setMovie] = useState<Movies>();
   const [reviews, setReviews] = useState<Reviews[]>();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     getReviews(movieId);
@@ -36,9 +39,14 @@ const MovieDetails = () => {
       withCredentials: true,
     };
 
-    requestBackend(params).then((response) => {
-      setReviews(response.data);
-    });
+    setIsLoading(true);
+    requestBackend(params)
+      .then((response) => {
+        setReviews(response.data);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   useEffect(() => {
@@ -52,9 +60,14 @@ const MovieDetails = () => {
       withCredentials: true,
     };
 
-    requestBackend(params).then((response) => {
-      setMovie(response.data);
-    });
+    setIsLoading(true);
+    requestBackend(params)
+      .then((response) => {
+        setMovie(response.data);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   const onSubmit = (formData: Reviews) => {
@@ -67,28 +80,38 @@ const MovieDetails = () => {
       withCredentials: true,
     };
 
-    requestBackend(config).then((response) => {
-      getReviews(movieId);
-      setValue('text', '');
-    });
+    requestBackend(config)
+      .then((response) => {
+        toast.success('Review inserido com sucesso');
+        getReviews(movieId);
+        setValue('text', '');
+      })
+      .catch(() => {
+        toast.error('Error ao inserir o review');
+      });
   };
 
   return (
     <div className="movie-details-container">
-      <div className="base-card movie-details-content">
-        <div className="movie-details-img-container">
-          <img src={movie?.imgUrl} alt={movie?.title} />
-        </div>
-        <div className="movie-details-title-container">
-          <div className="movie-details-title">
-            <h1>{movie?.title}</h1>
-            <h2>{movie?.year}</h2>
-            <h3>{movie?.subTitle}</h3>
+      {isLoading ? (
+        <CardLoader />
+      ) : (
+        <div className="base-card movie-details-content">
+          <div className="movie-details-img-container">
+            <img src={movie?.imgUrl} alt={movie?.title} />
           </div>
-          <div className="movie-details-title-comments">{movie?.synopsis}</div>
+          <div className="movie-details-title-container">
+            <div className="movie-details-title">
+              <h1>{movie?.title}</h1>
+              <h2>{movie?.year}</h2>
+              <h3>{movie?.subTitle}</h3>
+            </div>
+            <div className="movie-details-title-comments">
+              {movie?.synopsis}
+            </div>
+          </div>
         </div>
-      </div>
-
+      )}
       {hasAnyRoles(['ROLE_MEMBER']) && (
         <div className="base-card movie-details-card">
           <form

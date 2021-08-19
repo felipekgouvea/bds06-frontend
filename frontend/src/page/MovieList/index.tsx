@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { Movies } from '../../types/movies';
 import Pagination from '../../components/Pagination';
 import GenreFilter, { GenreFilterData } from '../../components/GenreFilter';
+import CardLoader from '../../components/CardLoader';
 
 type ControlComponentData = {
   activePage: number;
@@ -16,6 +17,7 @@ type ControlComponentData = {
 
 const MovieList = () => {
   const [page, setPage] = useState<SpringPage<Movies>>();
+  const [isLoading, setIsLoading] = useState(false);
 
   const [controlComponentData, setControlComponentData] =
     useState<ControlComponentData>({
@@ -49,9 +51,14 @@ const MovieList = () => {
       withCredentials: true,
     };
 
-    requestBackend(config).then((response) => {
-      setPage(response.data);
-    });
+    setIsLoading(true);
+    requestBackend(config)
+      .then((response) => {
+        setPage(response.data);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }, [controlComponentData]);
 
   useEffect(() => {
@@ -62,13 +69,17 @@ const MovieList = () => {
     <div className="movie-list-container">
       <GenreFilter onSubmitFilter={handleSubmitFilter} />
       <div className="row">
-        {page?.content.map((movies) => (
-          <div className="col-sm-6 col-xl-3" key={movies.id}>
-            <Link to={`/movies/${movies.id}`}>
-              <MovieCard movie={movies} />
-            </Link>
-          </div>
-        ))}
+        {isLoading ? (
+          <CardLoader/>
+        ) : (
+          page?.content.map((movies) => (
+            <div className="col-sm-6 col-xl-3" key={movies.id}>
+              <Link to={`/movies/${movies.id}`}>
+                <MovieCard movie={movies} />
+              </Link>
+            </div>
+          ))
+        )}
       </div>
       <div className="movie-list-pagination">
         <Pagination
@@ -76,7 +87,7 @@ const MovieList = () => {
           range={3}
           onChange={handlePageChange}
         />
-      </div>      
+      </div>
     </div>
   );
 };
